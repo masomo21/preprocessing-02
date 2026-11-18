@@ -11,7 +11,7 @@ def remove_duplicates(df):
     Returns:
     pd.DataFrame: DataFrame with duplicates removed.
     """
-    return None
+    return df.drop_duplicates().reset_index(drop=True)
 
 
 def drop_missing_data(df, threshold=0.5):
@@ -25,8 +25,9 @@ def drop_missing_data(df, threshold=0.5):
     Returns:
     pd.DataFrame: DataFrame with rows with too many missing values dropped.
     """
-    
-    return None
+    # Minimum number of non-missing values a row needs to be kept
+    min_present = int(threshold * df.shape[1])
+    return df.dropna(thresh=min_present).reset_index(drop=True)
 
 
 # Example data
