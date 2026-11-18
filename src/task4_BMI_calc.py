@@ -11,7 +11,8 @@ def calculate_bmi(df):
     Returns:
     pd.DataFrame: DataFrame with an additional 'BMI' column.
     """
-
+    df = df.copy()
+    df["BMI"] = df["weight"] / df["height"] ** 2   # BMI = weight (kg) / height (m)^2
     return df
 
 
@@ -25,7 +26,17 @@ def categorize_bmi(df):
     Returns:
     pd.DataFrame: DataFrame with an additional 'BMI_category' column.
     """
+    def category(bmi):
+        if bmi < 18.5:
+            return "Underweight"
+        if bmi < 25:
+            return "Normal weight"
+        if bmi < 30:
+            return "Overweight"
+        return "Obese"
 
+    df = df.copy()
+    df["BMI_category"] = df["BMI"].apply(category)
     return df
 
 
